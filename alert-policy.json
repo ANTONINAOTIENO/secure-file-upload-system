@@ -1,0 +1,27 @@
+{
+  "displayName": "GCS Denied Write Alert",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Denied writes detected",
+      "conditionThreshold": {
+        "filter": "metric.type=\"logging.googleapis.com/user/gcs_denied_writes\"",
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0,
+        "duration": "60s",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_SUM"
+          }
+        ]
+      }
+    }
+  ],
+  "alertStrategy": {
+    "autoClose": "3600s"
+  },
+  "notificationChannels": [
+    "projects/YOUR_PROJECT_ID/notificationChannels/YOUR_CHANNEL_ID"
+  ]
+}
